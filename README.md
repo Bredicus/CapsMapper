@@ -28,6 +28,6 @@ CapsMapper is being developed by [Eddy B.](https://github.com/Bredicus):
 
 This program is distributed under different licenses:
 
-1. And the [CapsMapper](https://github.com/Bredicus/CapsMapper) code is under GNU LESSER GENERAL PUBLIC LICENSE V3 (LGPLV3)
+1. The [CapsMapper](https://github.com/Bredicus/CapsMapper) code is under GNU LESSER GENERAL PUBLIC LICENSE V3 (LGPLV3)
 2. The [pystray](https://pypi.org/project/pystray/) module is under GNU LESSER GENERAL PUBLIC LICENSE V3 (LGPLV3)
 3. The [keyboard](https://pypi.org/project/keyboard/) module is under MIT license
