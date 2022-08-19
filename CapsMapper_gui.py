@@ -63,7 +63,7 @@ class CapsMapper:
         self.set_labels()
 
         suppress = False
-        if True == self.profileManager.active_profile["suppress"]:
+        if True == self.profileManager.get_suppress_lock_state():
             suppress = True
         self.keyboardManager.set_lock_key_hook(suppress)
 
@@ -258,7 +258,7 @@ class CapsMapper:
 
         self.activate_for_browser_open = True
 
-        filename = filedialog.askopenfilename(title='Pick file to launch', initialdir='/')
+        filename = filedialog.askopenfilename(title='Pick a program', initialdir='/')
         item_added = self.profileManager.add_activate_on_item(filename)
         self.keyboardManager.set_activate_on_arr(self.profileManager.get_fixed_activate_on())
 
@@ -322,7 +322,6 @@ class CapsMapper:
     def toggle_suppress_capslock(self):
         suppress_state = self.profileManager.toggle_suppress_lock_key()
         self.keyboardManager.set_suppress_state(suppress_state)
-        self.keyboardManager.clear_remap()
 
 
     def save_changes_messagebox(self):
@@ -426,6 +425,11 @@ class CapsMapper:
         self.icon.run()
 
 
+    def toggle_win_startup(self):
+        self.profileManager.toggle_win_startup()
+        self.run_on_startup.set(self.profileManager.get_win_startup())
+
+
     def build_menu(self):
         menubar = Menu(self.root)
 
@@ -456,7 +460,7 @@ class CapsMapper:
 
         self.run_on_startup = BooleanVar()
         self.run_on_startup.set(self.profileManager.get_win_startup())
-        filemenu.add_checkbutton(label="Run on Startup", onvalue=True, offvalue=False, variable=self.run_on_startup, command=lambda: self.profileManager.toggle_win_startup())
+        filemenu.add_checkbutton(label="Run on Startup", onvalue=True, offvalue=False, variable=self.run_on_startup, command=lambda: self.toggle_win_startup())
         filemenu.add_separator()
         
         filemenu.add_command(label="Exit", command=lambda: self.exit_app())
