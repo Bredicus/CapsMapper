@@ -151,8 +151,14 @@ class ProfileManager:
     def add_activate_on_item(self, filename: str) -> bool:
         item_added = False
         if '' != filename and filename not in self.activate_on[self.active_profile["profile"]].values():
-            new_key = int(list(self.activate_on[self.active_profile["profile"]].keys())[-1]) + 1
-            self.activate_on[self.active_profile["profile"]][new_key] = filename
+
+            items = list(self.activate_on[self.active_profile["profile"]].keys())
+            if 0 == len(items):
+                new_key = 0
+            else:
+                new_key = int(items[-1]) + 1
+
+            self.activate_on[self.active_profile["profile"]][str(new_key)] = filename
             self.save_activate_on_profile_settings() 
             item_added = True
         
@@ -162,14 +168,14 @@ class ProfileManager:
     def remove_activate_on_item(self, file_path: str) -> bool:
         item_removed = False
         if self.activate_on.get(self.active_profile["profile"], False):
-            delete_key = False
+            delete_key = -1
             for key, path in self.activate_on[self.active_profile["profile"]].items():
                 if file_path == path:
-                    delete_key = key
+                    delete_key = int(key)
                     break
-                    
-            if False != delete_key:
-                del self.activate_on[self.active_profile["profile"]][delete_key]
+
+            if delete_key >= 0:
+                del self.activate_on[self.active_profile["profile"]][str(delete_key)]
                 self.save_activate_on_profile_settings()
                 item_removed = True
 
@@ -238,4 +244,3 @@ class ProfileManager:
             os.remove(path)
         else:  
             self.set_win_startup()
-        self.run_on_startup.set(not is_set)
