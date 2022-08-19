@@ -126,6 +126,14 @@ class CapsMapper:
             if "" == self.key_new:
                 self.key_new = self.key_current
 
+            if self.key_current == self.key_new and self.key_new in self.profileManager.remaps:
+                self.profileManager.remaps.pop(self.key_new)
+
+            if self.key_current != self.key_new:
+                self.profileManager.remaps[self.key_current] = self.key_new
+
+            self.keyboardManager.set_remaps(self.profileManager.get_remaps())
+
             self.profileManager.cp_edit = True
             self.labels_dic[self.key_current]['text'] = self.key_new
 
@@ -142,15 +150,6 @@ class CapsMapper:
 
         if False != keyset:
             self.key_new = keyset.key
-
-            if self.key_current == self.key_new and self.key_new in self.profileManager.remaps:
-                self.profileManager.remaps.pop(self.key_new)
-
-            if self.key_current != self.key_new:
-                self.profileManager.remaps[self.key_current] = self.key_new
-
-            self.keyboardManager.set_remaps(self.profileManager.get_remaps())
-
             self.pop_label_remap['text'] = keycodes.cpKeyToDisplayName.get(self.key_new, self.key_new)
 
 
@@ -568,4 +567,4 @@ class CapsMapper:
         self.add_normal_key("Win", "Rwin", 11, "Rwin", 778, 323)
         self.add_normal_key("Menu", "menu", 11, "menu", 868, 323)
         self.add_normal_key("Ctrl", "Rctrl", 11, "Rctrl", 958, 323)
-
+        
