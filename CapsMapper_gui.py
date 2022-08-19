@@ -567,4 +567,3 @@ class CapsMapper:
         self.add_normal_key("Win", "Rwin", 11, "Rwin", 778, 323)
         self.add_normal_key("Menu", "menu", 11, "menu", 868, 323)
         self.add_normal_key("Ctrl", "Rctrl", 11, "Rctrl", 958, 323)
-        
