@@ -100,10 +100,14 @@ class KeyboardManager:
     def set_suppress_state(self, state: bool) -> None:
         self.suppress_state = state
 
+        if False == state:
+            self.reset_lock_key_state()
+
 
     def clear_remap(self) -> None:
         keyboard.unhook_all()
         suppress = False
+
         if True == self.suppress_state and True == self.active_state and True == self.activate_on_state:
             suppress = True
         
@@ -140,9 +144,6 @@ class KeyboardManager:
                 if act_prog_path == path:
                     self.activate_on_state = True
                     break
-
-            if True == self.suppress_state:
-                self.reset_lock_key_state()
 
             enable_keys = 0
             if True == self.activate_on_state and 1 == self.state:
