@@ -214,15 +214,16 @@ class ProfileManager:
 
 
     def set_win_startup(self) -> None:
+        file_name = 'CapsMapper.exe'
         output = os.popen('wmic process get description, processid').read()
         output = output.splitlines()
 
         for line in output:
             line = ' '.join(line.split())
 
-            if len(line) > 0 and line.startswith('CapsMapper.exe'):
+            if len(line) > 0 and line.startswith(file_name):
                 path = os.popen('wmic process where "ProcessId=' + line.split()[1] + '" get ExecutablePath').read()
-                for ch in ["b'ExecutablePath", "ExecutablePath", "\\r\\n"]:
+                for ch in ["b'ExecutablePath", "ExecutablePath", "\\r\\n", "\\" + file_name]:
                     if ch in path:
                         path = path.replace(ch, '')
 
@@ -232,7 +233,9 @@ class ProfileManager:
                 file_path = os.path.join('C:' + os.sep, 'Users', os.getlogin(), 'AppData', 'Roaming', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup', 'capsmapper_start.bat')
                 
                 with open(file_path, 'w') as f:
-                    f.write(r'start "" "%s"' % path)
+                    f.write(r'cd %s' % path)
+                    f.write('\n')
+                    f.write(r'start "" "%s"' % file_name)
                 
                 break
 
