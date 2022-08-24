@@ -23,7 +23,7 @@ You can ask for help by emailing capsmapper@gmail.com
 
 ## Authors
 
-CapsMapper is being developed by [Eddy B.](https://github.com/Bredicus):
+CapsMapper is being developed by [Eddy B.](https://github.com/Bredicus)
 
 ## License
 
