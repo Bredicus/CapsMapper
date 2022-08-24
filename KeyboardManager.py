@@ -149,6 +149,9 @@ class KeyboardManager:
             if True == self.activate_on_state and 1 == self.state:
                 enable_keys = 1
 
+            if True == self.suppress_state:
+                self.clear_remap()
+                
             self.set_mapping(enable_keys)
         
         return enable_keys
